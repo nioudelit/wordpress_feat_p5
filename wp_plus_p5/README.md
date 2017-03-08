@@ -47,7 +47,8 @@ Il y a donc le strict minimum par défaut. Même si l'idée ici est de profiter 
 
 - Afficher tags
 
-```<?php $posttags = get_the_tags(); 
+```php
+<?php $posttags = get_the_tags(); 
 		if ($posttags) { 
 			foreach($posttags as $tag) { 
 				echo $tag->name . '*'; 
@@ -57,7 +58,8 @@ Il y a donc le strict minimum par défaut. Même si l'idée ici est de profiter 
 
 - Afficher Catégorie, date, auteurs
 
-```<p class="article_info">
+```php
+<p class="article_info">
           Publié le <?php the_date(); ?> 
           dans <?php the_category(', '); ?> 
           par <?php the_author(); ?>.
@@ -67,7 +69,8 @@ Il y a donc le strict minimum par défaut. Même si l'idée ici est de profiter 
 - Afficher image de présentation (thumbnail)
 
 
-```<?php 
+```php
+<?php 
 	$imageData = wp_get_attachment_image_src(get_post_thumbnail_id ( $post_ID ), 'medium'); ?>
 	<img class="minitature" src="<?php echo $imageData[0]; ?>"/>
 ```
@@ -77,7 +80,7 @@ Il y a donc le strict minimum par défaut. Même si l'idée ici est de profiter 
 😡 😡 😡 !!! ATTENTION !!! 😡😡😡
 
 Par défaut tous les articles ne sont pas affichés ! Ils sont cachés par le css: `article{display: none;}`.
-On pourra les réafficher via des interactions JS avec *objet*.style.display = "block". La gestion des articles est détaillée plus bas. 
+On pourra les réafficher via des interactions JS avec *objet*.style.display = "block". La gestion des articles est détaillée plus bas.  Ou bien sur en modifiant le css directement selon la volonté qui animera le manipulateur.
 
 **Identifiants**
 
@@ -120,13 +123,14 @@ Dans ce fichier il y a la classe Article qui récupère les informations des dif
 
 On récupère sur l'accueil, tous les articles de la page ainsi que leur nombre:
 
-```var articlesDOM = document.getElementsByTagName('article');
+```javascript
+var articlesDOM = document.getElementsByTagName('article');
 var nombreArticles = articlesDOM.length;
 ```
 
 La fonction initArt() récupère et inscript dans chacun des objets les informations des articles, placés dans les attributs html *data—* (dans le fichier loop.php)
 
-```
+```javascript
 for (var i = 0; i < nombreArticles; i++) {
     var dataTitre = articlesDOM[i].getAttribute("data-titre");
     var dataURL = articlesDOM[i].getAttribute("data-url");
@@ -138,14 +142,14 @@ for (var i = 0; i < nombreArticles; i++) {
 
 Ensuite dans l'objet Article, on place les infos dans des variables globales en sein de l'objet. Rien de notable sauf peut-être pour le traitement des "tags" (ou "étiquettes") wordpress qui sont sous forme de tableau:
 
-```
+```javascript
 var tag = splitTokens(tags, "*");
 var cardinalTag = tag.length;
 ```
 
 Pour créer des effets particuliers, il faudra donc créer des méthodes au sein de ce fichier. Un exemple, qui affiche les titre lors du survol des articles modélisés par des cercles. De plus, les articles ont un comportement différent selon les tags qui leur sont assignés : 
 
-```
+```javascript
 function Article(identifiant, titre, lien, categorie, tags, ordreBoucle){
 …
 …
@@ -201,7 +205,7 @@ this.dessinerAfficher = function(){
 
 On pourra à la mode de processing, utiliser les fonctions classiques, setup et draw. Cependant, il faudra pour rendre effectif les classes d'articles, utiliser la fonction initArt() dans le setup:
 
-```
+```javascript
 function setup(){
   createCanvas(windowWidth, windowHeight);
   initArt();

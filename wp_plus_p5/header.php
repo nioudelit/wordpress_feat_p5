@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css">
     <!--<link href="https://fonts.googleapis.com/css?family=Monda" rel="stylesheet">-->
 
-	<!-- BIBLIOTHEQUES JAVASCRIPT (Facultatif)-->
+	<!-- BIBLIOTHEQUES JAVASCRIPT-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.min.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
-    <!--<script src="hhttps://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><!-- (Facultatif) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> <!-- (Facultatif) -->
     <!--<script src="http://planplan.xyz/javascript/p5.play.js"></script>-->
 
 	<!-- FIN JS-->

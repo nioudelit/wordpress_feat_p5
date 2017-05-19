@@ -1,6 +1,6 @@
 #Wordpress + P5.js 😘
 ## Un thème sobre 🙏🏽
-**L'idée**: créer un thème Wordpress assez vide et pourvoir modéliser et afficher les articles ou les pages via p5.js. L'ensemble de l'espace du blog est un canevas animé et interactif. 
+**L'idée**: créer un thème Wordpress assez vide et pourvoir modéliser et afficher les articles ou les pages via p5.js. L'ensemble de l'espace du blog est un canevas animé et interactif.
 
 **Pourquoi ?** C'est peut-être patant: pouvoir créer un site ou un blog en considérant les articles ou les pages non pas comme une suite de liens ou d'images pointant vers des articles ou des pages (comme un blog "traditionnel"); mais en les considérant comme des objets graphiques, pouvant être assujettis à du mouvement, générés aléatoirement, soumis à des interactions avec la souris, etc. Bref du Processinge, quoi, mais avec du Wordpress.
 
@@ -11,17 +11,18 @@ Ce petit thème n'est cependant pas une boite d'effets prêt à l'emploi.
 ### Exemples:
 
 - [Mobiles](http://planplan.xyz/wordpress_ft_p5)
+- [Indisciplinarité](http://code.feralj.fr)
 
 ## Notes. Structure générale du thème 👩‍👩‍👦
 
-Ce thème est basé sur le thème Supersobre, lui même grandement inspiré du thème vierge "bbxdesert". 
+Ce thème est basé sur le thème Supersobre, lui même grandement inspiré du thème vierge "bbxdesert".
 Il y a donc le strict minimum par défaut. Même si l'idée ici est de profiter du canvas de p5.js sur toute l'étendue de la page, on pourra réinsérer les balises traditionnelles de wordpress (je classe ici celles que je juge importantes, au pire --> CODEX). On pourra, en modifiant quelques lignes de code, réduire l'espace du canevas. Voici comment s'organise les fichiers entre eux.
 
 ### HTML/PHP:
 #### Pages importantes
-**index.php** -- C'est la page d'accueil. Il y a des includes wordpress et des includes php classiques. 
+**index.php** -- C'est la page d'accueil. Il y a des includes wordpress et des includes php classiques.
 
-**paysage.php** -- Les classes qui récupère les informations relatives aux articles pour le programme p5.js. 
+**paysage.php** -- Les classes qui récupère les informations relatives aux articles pour le programme p5.js.
 
 **sketch.php** -- C'est le fichier où l'on éditera du code p5.js, entre les balises script. Il y a des classes déjà codées, certaines méthodes pourront être utiles, notamment dans la récupération des articles et de ses informations dans l'espace du canevas. Pour en savoir plus, lisez le détail des classes, dans le chapitre "paysage p5.js".
 
@@ -41,9 +42,29 @@ Il y a donc le strict minimum par défaut. Même si l'idée ici est de profiter 
 
 `<?php the_excerpt(); ?>`
 
-- Afficher pages
+- Afficher pages (classe relative: "pages")
 
 ` <?php wp_list_pages(); ?>`
+
+- Afficher contenu pages (dans index.php)
+
+```php
+<?php
+	$nombrePages = wp_count_posts('page')->publish;
+	$pages = get_pages();
+	foreach($pages as $page) :
+			//get_the_title($page);
+			echo "<div class=\"papage\">";
+			echo "<a href=\"". get_page_link($id) . "\">". get_the_title($page) . "</a>";
+			setup_postdata($page);
+			echo  the_content() . "<div class=\"detruit\"><a href=\"#\">X</a></div></div>";
+	endforeach;
+?>
+```
+
+- Une page comme accueil
+
+`<?php query_posts('pagename=home'); ?>`
 
 - Afficher contenu article entièrement
 
@@ -52,11 +73,11 @@ Il y a donc le strict minimum par défaut. Même si l'idée ici est de profiter 
 - Afficher tags
 
 ```php
-<?php $posttags = get_the_tags(); 
-		if ($posttags) { 
-			foreach($posttags as $tag) { 
-				echo $tag->name . '*'; 
-			} 
+<?php $posttags = get_the_tags();
+		if ($posttags) {
+			foreach($posttags as $tag) {
+				echo $tag->name . '*';
+			}
 		}?>
 ```
 
@@ -64,8 +85,8 @@ Il y a donc le strict minimum par défaut. Même si l'idée ici est de profiter 
 
 ```php
 <p class="article_info">
-          Publié le <?php the_date(); ?> 
-          dans <?php the_category(', '); ?> 
+          Publié le <?php the_date(); ?>
+          dans <?php the_category(', '); ?>
           par <?php the_author(); ?>.
    </p>
 ```
@@ -74,7 +95,7 @@ Il y a donc le strict minimum par défaut. Même si l'idée ici est de profiter 
 
 
 ```php
-<?php 
+<?php
 	$imageData = wp_get_attachment_image_src(get_post_thumbnail_id ( $post_ID ), 'medium'); ?>
 	<img class="minitature" src="<?php echo $imageData[0]; ?>"/>
 ```
@@ -96,7 +117,7 @@ On pourra les réafficher via des interactions JS avec *objet*.style.display = "
 
 **Classes**
 
-1. pages 
+1. pages
 2. navigation
 
 **Classes dans index.php (accueil):**
@@ -106,14 +127,16 @@ On pourra les réafficher via des interactions JS avec *objet*.style.display = "
 - article_extrait
 - article_contenu
 
-**Classes dans article seul**
+- papage (classe d'une page affichée avec son contenu)
+
+**Classes dans article seul (dans single.php)**
 
 - article_titre_seul
 - article_info_seul
 - article_extrait_seul
 - article_contenu_seul
 
-!!! ATTENTION !!! Les articles, une fois affichés seuls, ne sont pas cntenus dans des balises articles, mais des div. Ce n'est pas très important, puisque les id et les classes restent les mêmes. 
+!!! ATTENTION !!! Les articles, une fois affichés seuls, ne sont pas cntenus dans des balises articles, mais des div. Ce n'est pas très important, puisque les id et les classes restent les mêmes. Voir dans single.php.
 
 ## "Paysage" P5.js
 
@@ -151,7 +174,7 @@ var tag = splitTokens(tags, "*");
 var cardinalTag = tag.length;
 ```
 
-Pour créer des effets particuliers, il faudra donc créer des méthodes au sein de ce fichier. Un exemple, qui affiche les titre lors du survol des articles modélisés par des cercles. De plus, les articles ont un comportement différent selon les tags qui leur sont assignés : 
+Pour créer des effets particuliers, il faudra donc créer des méthodes au sein de ce fichier. Un exemple, qui affiche les titre lors du survol des articles modélisés par des cercles. De plus, les articles ont un comportement différent selon les tags qui leur sont assignés :
 
 ```javascript
 function Article(identifiant, titre, lien, categorie, tags, ordreBoucle){
@@ -171,11 +194,11 @@ this.dessinerAfficher = function(){
     var X = ordreBoucle * 40;
     var Y = 100;
     var D = 40;
-    
+
     if(mouseX >= X - D/2 && mouseX <= X + D/2){
       lArticle.style.display = "block";
       fill(couleur, 0, couleur);
-      
+
       if(mouseIsPressed){
 			window.location = lien;
       }
@@ -184,7 +207,7 @@ this.dessinerAfficher = function(){
       lArticle.style.display = "none";
     }
 
-    //TAGS 
+    //TAGS
     //Une boucle pour parcourir l'ensemble des tags de l'article
     for(var i = 0; i < cardinalTag; i++){
       if(tag[i] == "froid"){
@@ -231,5 +254,3 @@ Et bien entenu afficher tous les objets-articles dans un boucle, comme présent�
 À essayer, le plug-in qui permet de faire des sketchs p5 pour chaque article.
 
 ## La même chose avec les pages
-
-À suivre !

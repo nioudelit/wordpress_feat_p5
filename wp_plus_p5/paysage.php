@@ -4,13 +4,24 @@ var art = [];
 var articlesDOM = document.getElementsByTagName('article');
 var nombreArticles = articlesDOM.length;
 
+//PAGES
+var pages = [];
+var toutesLesPages = document.querySelectorAll(".papage");
+var nombrePages = toutesLesPages.length;
+
 function initArt(){
+  //ARTICLES
   for (var i = 0; i < nombreArticles; i++) {
     var dataTitre = articlesDOM[i].getAttribute("data-titre");
     var dataURL = articlesDOM[i].getAttribute("data-url");
     var dataCategorie = articlesDOM[i].getAttribute("data-categorie");
     var dataTags = articlesDOM[i].getAttribute("data-tags");
     art.push(new Article(articlesDOM[i].id, dataTitre, dataURL, dataCategorie, dataTags, i));
+  }
+
+  //PAGES
+  for (var i = 0; i < nombrePages; i++) {
+    pages.push(new Page(i));
   }
 }
 
@@ -19,7 +30,7 @@ function Article(identifiant, titre, lien, categorie, tags, ordreBoucle) {
   this.identifiant = identifiant
   this.titre = titre;
   this.lien = lien;
-  this.catagorie = categorie;
+  this.categorie = categorie;
   this.ordreBoucle = ordreBoucle;
   this.tags = tags;
 
@@ -27,7 +38,7 @@ function Article(identifiant, titre, lien, categorie, tags, ordreBoucle) {
   var cardinalTag = tag.length;
   /*FIN RECUPERATION INFOS ARTICLE*/
 
-  //BON
+  //TEST
   var couleur = ordreBoucle / nombreArticles * 255;
 
   this.obtenirTitre = function() {
@@ -50,7 +61,7 @@ function Article(identifiant, titre, lien, categorie, tags, ordreBoucle) {
       coco.style.display = "block"; //AFFICHE VIA CSS+JS
       fill(couleur, 0, couleur);
       if(mouseIsPressed){
-	window.location = lien;
+	       window.location = lien;
       }
     } else {
       fill(couleur);
@@ -69,11 +80,32 @@ function Article(identifiant, titre, lien, categorie, tags, ordreBoucle) {
         D = cos(frameCount/10) * 100;
       }
       if(tag[i] == "lemniscate"){
-        X = sin(frameCount/10) * 10 + mouseX;
-	Y = sin(frameCount/10) * cos(frameCount/10) * 100 + mouseY;
+         X = sin(frameCount/10) * 10 + mouseX;
+	       Y = sin(frameCount/10) * cos(frameCount/10) * 100 + mouseY;
       }
     }
     ellipse(X, Y, D, D);
+  };
+}
+
+
+function Page(ordreBoucle) {
+  this.ordreBoucle = ordreBoucle;
+
+  this.dessiner = function() {
+    var coco = toutesLesPages[ordreBoucle];
+    var mama = document.getElementById("main");
+
+    mama.removeChild(coco);
+    document.getElementById("main").appendChild(coco);
+    coco.classList.add("papage");
+    coco.style.position = "fixed";
+    coco.style.left = /*coco.offsetLeft +*/ random(0, width) + "px";
+    coco.style.top = /*coco.offsetTop +*/ random(0, height) + "px";
+    coco.style.width = "100px";
+    coco.style.height = "100px";
+    coco.style.overflowY = "hidden";
+    coco.style.background = "yellow";
   };
 }
 </script>

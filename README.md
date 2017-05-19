@@ -254,3 +254,5 @@ Et bien entenu afficher tous les objets-articles dans un boucle, comme présent�
 À essayer, le plug-in qui permet de faire des sketchs p5 pour chaque article.
 
 ## La même chose avec les pages
+
+- La classe page est similaire…

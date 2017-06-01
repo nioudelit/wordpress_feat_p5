@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><!-- (Facultatif) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> <!-- (Facultatif) -->
     <!--<script src="http://planplan.xyz/javascript/p5.play.js"></script>-->
-    
+
 	<!-- FIN JS-->
     <?php wp_head(); ?>
   </head>

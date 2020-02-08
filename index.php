@@ -21,8 +21,10 @@
 </section>
 
 <?php
-	  //SKETCH.
-    wp_enqueue_script( 'paysage', get_template_directory_uri() . '/js/paysage.js', array(), true );
+	  // P5 //
+    //wp_enqueue_script( 'paysage', get_template_directory_uri() . '/js/paysage.js', array(), true );
+    wp_enqueue_script( 'articles_p5', get_template_directory_uri() . '/js/articles.js', array(), true );
+    wp_enqueue_script( 'pages_p5', get_template_directory_uri() . '/js/pages.js', array(), true );
     wp_enqueue_script( 'sketch', get_template_directory_uri() . '/js/sketch.js', array(), true );
 ?>
 

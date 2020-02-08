@@ -1,74 +1,77 @@
 //ARTICLES
-var art = [];
-var articlesDOM = document.getElementsByTagName('article');
-var nombreArticles = articlesDOM.length;
+let articles = [];
+let articlesDOM = document.getElementsByTagName('article');
+const nombreArticles = articlesDOM.length;
 
 //PAGES
-var pages = [];
-var toutesLesPages = document.querySelectorAll(".papage");
-var nombrePages = toutesLesPages.length;
+let pages = [];
+let toutesLesPages = document.querySelectorAll(".papage");
+const nombrePages = toutesLesPages.length;
 
-function initArt(){
-  //ARTICLES
-  for (var i = 0; i < nombreArticles; i++) {
-    var dataTitre = articlesDOM[i].getAttribute("data-titre");
-    var dataURL = articlesDOM[i].getAttribute("data-url");
-    var dataCategorie = articlesDOM[i].getAttribute("data-categorie");
-    var dataTags = articlesDOM[i].getAttribute("data-tags");
-    art.push(new Article(articlesDOM[i].id, dataTitre, dataURL, dataCategorie, dataTags, i));
+function getArticles(){
+  for (let i = 0; i < nombreArticles; i++) {
+    let dataTitre = articlesDOM[i].getAttribute("data-titre");
+    let  dataURL = articlesDOM[i].getAttribute("data-url");
+    let dataCategorie = articlesDOM[i].getAttribute("data-categorie");
+    let dataTags = articlesDOM[i].getAttribute("data-tags");
+
+    articles.push(new Article(articlesDOM[i].id, dataTitre, dataURL, dataCategorie, dataTags, i));
   }
+}
 
-  //PAGES
-  for (var i = 0; i < nombrePages; i++) {
+function getPages(){
+  for (let i = 0; i < nombrePages; i++) {
     pages.push(new Page(i));
   }
 }
 
-function Article(identifiant, titre, lien, categorie, tags, ordreBoucle) {
+class Article{
   /*RECUPERE INFOS ARTICLES*/
-  this.identifiant = identifiant
-  this.titre = titre;
-  this.lien = lien;
-  this.categorie = categorie;
-  this.ordreBoucle = ordreBoucle;
-  this.tags = tags;
+    constructor(identifiant, titre, lien, categorie, tags, ordreBoucle){
+      this.identifiant = identifiant
+      this.titre = titre;
+      this.lien = lien;
+      this.categorie = categorie;
+      this.ordreBoucle = ordreBoucle;
+      this.tags = tags;
+      //
+      this.tag = splitTokens(tags, "*");
+      this.cardinalTag = this.tag.length;
+      this.couleur = ordreBoucle / nombreArticles * 255;
+  }  
 
-  var tag = splitTokens(tags, "*");
-  var cardinalTag = tag.length;
-  /*FIN RECUPERATION INFOS ARTICLE*/
+  obtenirTitre(){
+    console.log(this.titre);
+  }
 
-  //TEST
-  var couleur = ordreBoucle / nombreArticles * 255;
+  obtenirCategorie(){
+    console.log(this.categorie);
+  }
 
-  this.obtenirTitre = function() {
-    console.log(titre);
-  };
+  clicLien() {
+    console.log(this.lien);
+  }
 
-  this.obtenirCategorie = function() {
-    console.log(categorie);
-  };
+  dessiner(){
+    let coco = document.getElementById(this.identifiant);
+    let D = 40;
+    let X = this.ordreBoucle * D;
+    let Y = 100;
+    
 
-  this.clicLien = function() {
-  };
-
-  this.dessinerAfficher = function(){
-    var coco = document.getElementById(identifiant);
-    var X = ordreBoucle * 40;
-    var Y = 100;
-    var D = 40;
     if(mouseX >= X - D/2 && mouseX <= X + D/2){
       coco.style.display = "block"; //AFFICHE VIA CSS+JS
-      fill(couleur, 0, couleur);
+      fill(this.couleur, 0, this.couleur);
       if(mouseIsPressed){
 	       window.location = lien;
       }
     } else {
-      fill(couleur);
+      fill(this.couleur);
       coco.style.display = "none";//AFFICHE VIA CSS+JS
     }
 
     //TAGS
-    for(var i = 0; i < cardinalTag; i++){
+    for(let i = 0; i < this.cardinalTag; i++){
       if(tag[i] == "froid"){
         X += random(-1, 1);
         Y += random(-1, 1);
@@ -84,16 +87,19 @@ function Article(identifiant, titre, lien, categorie, tags, ordreBoucle) {
       }
     }
     ellipse(X, Y, D, D);
-  };
+  }
 }
 
 
-function Page(ordreBoucle) {
-  this.ordreBoucle = ordreBoucle;
+class Page{
+  constructor(ordreBoucle){
+    this.ordreBoucle = ordreBoucle;
+  }
+  
 
-  this.dessiner = function() {
-    var coco = toutesLesPages[ordreBoucle];
-    var mama = document.getElementById("main");
+  dessiner() {
+    let coco = toutesLesPages[this.ordreBoucle];
+    let mama = document.getElementById("main");
 
     mama.removeChild(coco);
     document.getElementById("main").appendChild(coco);
@@ -105,5 +111,5 @@ function Page(ordreBoucle) {
     coco.style.height = "100px";
     coco.style.overflowY = "hidden";
     coco.style.background = "yellow";
-  };
+  }
 }

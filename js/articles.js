@@ -6,7 +6,7 @@ const nombreArticles = articlesDOM.length;
 function getArticles(){
     for (let i = 0; i < nombreArticles; i++) {
       let dataTitre = articlesDOM[i].getAttribute("data-titre");
-      let  dataURL = articlesDOM[i].getAttribute("data-url");
+      let dataURL = articlesDOM[i].getAttribute("data-url");
       let dataCategorie = articlesDOM[i].getAttribute("data-categorie");
       let dataTags = articlesDOM[i].getAttribute("data-tags");
   
@@ -23,7 +23,7 @@ class Article{
         this.categorie = categorie;
         this.ordreBoucle = ordreBoucle;
         this.tags = tags;
-        //
+
         this.tag = splitTokens(tags, "*");
         this.cardinalTag = this.tag.length;
         this.couleur = ordreBoucle / nombreArticles * 255;

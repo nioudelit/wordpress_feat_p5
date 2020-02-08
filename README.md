@@ -1,18 +1,18 @@
 # Wordpress + P5.js 
 
-## Un thème sobre 🙏🏽
+**L'idée**: créer un thème Wordpress assez vide et pourvoir modéliser et afficher les articles ou les pages via [p5.js](https://p5js.org/reference/). L'ensemble de l'espace du site est un canevas animé et interactif. À chaque page, à chaque article, nous pouvons attribuer des caractéristiques graphiques spécifiques selon leur catégorie ou leurs étiquettes.
 
-**L'idée**: créer un thème Wordpress assez vide et pourvoir modéliser et afficher les articles ou les pages via [p5.js](https://p5js.org/reference/). L'ensemble de l'espace du site est un canevas animé et interactif. À chaque page, à chaque article, nous pouvons attribuer des caractéristques graphiques spécifiques selon leur catégorie ou leurs étiquettes.
-
-**Pourquoi ?** Pour pouvoir créer un site ou un blog en considérant les articles ou les pages non pas comme une suite de liens ou d'images pointant vers des articles ou des pages (comme un blog classique); mais en les considérant comme des objets graphiques, pouvant être assujettis à du mouvement, générés aléatoirement, soumis à des interactions avec la souris, etc. Bref profiter des fonctionnalité de p5.js avec la structure dynamique php de Wordpress. Ainsi, avec wp ft. p5, il faut considérer le blog ou le site comme un canevas interactif où pages et articles sont, en quelque sorte, les *protagonistes* du paysage.
+**Pourquoi ?** Pour pouvoir créer un site ou un blog en considérant les articles ou les pages non pas comme une suite de liens ou d'images pointant vers des articles ou des pages (comme un blog classique); mais en les considérant comme des objets graphiques, pouvant être assujettis à du mouvement, générés aléatoirement, soumis à des interactions avec la souris, etc. Bref profiter des fonctionnalités de p5.js avec la structure dynamique php de Wordpress. Ainsi, avec wp ft. p5, il faut considérer le blog ou le site comme un canevas interactif où pages et articles sont, en quelque sorte, les *protagonistes* du paysage.
 
 Ce petit thème n'est cependant pas une boite d'effets prêt à l'emploi. Chaque effet voulu doit être codé. Par exemple, si l'on veut qu'une page ou un article avec l'étiquette «infini» par exemple, ait la forme un cercle qui suit le mouvement d'un leminscate (∞) autour de la souris, il faudra, quelque part dans le code, ajouter quelque chose comme:
 
 ```
+…
 if(tag[i] == "infini"){
         X = sin(frameCount/10) * 10 + mouseX;
         Y = sin(frameCount/10) * cos(frameCount/10) * 100 + mouseY;
-      }
+}
+…
 ```
 
 ### Exemples:

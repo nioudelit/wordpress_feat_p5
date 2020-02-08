@@ -52,7 +52,7 @@ class Article{
         coco.style.display = "block"; //AFFICHE VIA CSS+JS
         fill(this.couleur, 0, this.couleur);
         if(mouseIsPressed){
-             window.location = lien;
+             window.location = this.lien;
         }
       } else {
         fill(this.couleur);

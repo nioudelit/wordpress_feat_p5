@@ -27,11 +27,13 @@ Ce thème est basé sur le thème Supersobre, lui même grandement inspiré du t
 
 Il y a donc le strict minimum par défaut. Même si l'idée ici est de profiter du canvas de p5.js sur toute l'étendue de la page, on pourra réinsérer les balises traditionnelles de wordpress. Je classe ici celles que je juge importantes, relatives au thème. Sinon voir les fonctions de WP [ici](https://codex.wordpress.org/Function_Reference). On pourra, en modifiant quelques lignes de code, réduire l'espace du canevas. Voici comment s'organise les fichiers entre eux.
 
-### HTML/PHP:
+### HTML/PHP/JS:
 #### Pages importantes
 **index.php** -- C'est la page d'accueil. Il y a des includes wordpress et des includes php classiques.
 
-**paysage.php** -- Les classes qui récupère les informations relatives aux articles pour le programme p5.js.
+**articles.js** -- Les classes et fonctions qui récupèrent les informations relatives aux articles pour le programme p5.js.
+
+**pages.js** -- Les classes et fonctions qui récupèrent les informations relatives aux pages pour le programme p5.js.
 
 **sketch.php** -- C'est le fichier où l'on éditera du code p5.js, entre les balises script. Il y a des classes déjà codées, certaines méthodes pourront être utiles, notamment dans la récupération des articles et de ses informations dans l'espace du canevas. Pour en savoir plus, lisez le détail des classes, dans le chapitre "paysage p5.js".
 

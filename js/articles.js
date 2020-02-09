@@ -72,7 +72,7 @@ class Article{
         }
         if(tag[i] == "lemniscate"){
            X = sin(frameCount/10) * 10 + mouseX;
-             Y = sin(frameCount/10) * cos(frameCount/10) * 100 + mouseY;
+        Y = sin(frameCount/10) * cos(frameCount/10) * 100 + mouseY;
         }
       }
       ellipse(X, Y, D, D);

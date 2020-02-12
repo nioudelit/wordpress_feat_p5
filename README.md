@@ -17,9 +17,9 @@ if(tag[i] == "infini"){
 
 ### Exemples:
 
-- [Thème par défaut](http://planplan.xyz/wordpress_ft_p5)
+- [Thème par défaut](http://feralj.fr/webdoc_test/)
 - [Indisciplinarité](http://code.feralj.fr)
-- [Webdocu](http://planplan.xyz/wordpress_ft_p5)
+- [Températures](http://feralj.fr/wp_ft_p5_ex/temperatures/)
 
 ## Structure générale du thème 👩‍👩‍👦
 
